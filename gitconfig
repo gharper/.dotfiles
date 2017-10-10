@@ -1,0 +1,32 @@
+[core]
+	excludesfile = /Users/geromy.harper/.gitignore_global
+	autocrlf = input
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = Geromy Harper
+	email = geromy+gitkraken@gmail.com
+[commit]
+	template = /Users/geromy.harper/.stCommitMsg
+[push]
+	default = matching
+
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	rebase-branch = "!git rebase -i `git merge-base master HEAD`"
+	merge-log = "!git log `git merge-span .. $1`"
+	merge-diff = "!git diff `git merge-span ... $1`"
+	merge-difftool = "!git difftool `git merge-span ... $1`"
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
