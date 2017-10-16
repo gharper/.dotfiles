@@ -5,7 +5,8 @@ export ZSH=~/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="candy"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -96,13 +97,9 @@ export PIP_REQUIRE_VIRTUALENV=false
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias restart_jenkins1='ansible jenkins-001 -m service -a "name=jenkins state=restarted" -b -K'
-
 alias push_sshkey='ansible $1 -m authorized_key -a "user=gharper key=\"{{ lookup('\''file'\'', '\''.ssh/id_rsa.pub'\'') }}\" path=/home/users/gharper/.ssh/authorized_keys"'
 
 alias orphan_procs_on='ansible $1 -m shell -a "ps -elf | head -1; ps -elf | awk '\''{if (\$5 == 1 && \$3 != "root") {print \$0}}'\'' | head" -b -K'
-
-#'ssh $1 "ps -elf | head -1; ps -elf | awk '"'"'{if ($5 == 1 && $3 != "root") {print $0}}'"'"' | head"'
 
 alias flushdns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;scutil --dns|grep -A20 "scoped queries"|egrep "resolver|domain|nameserver"'
 
