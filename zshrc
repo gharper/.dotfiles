@@ -55,7 +55,7 @@ plugins=(git)
 
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$PATH:/usr/local/opt/go/libexec/bin"
-export PATH="/Users/geromy.harper/bin:$PATH"
+export PATH="~/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 export CHEATCOLORS=true
 
@@ -115,9 +115,3 @@ alias pipup='pip list --outdated | cut -d" " -f1 | egrep -v "Package|---" | xarg
 alias pipls='pip list --outdated'
 
 alias keepass='lpass show -c --notes Keepass2'
-
-#PATH="/Users/geromy.harper/perl5/bin${PATH:+:${PATH}}"; export PATH;
-#PERL5LIB="/Users/geromy.harper/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-#PERL_LOCAL_LIB_ROOT="/Users/geromy.harper/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-#PERL_MB_OPT="--install_base \"/Users/geromy.harper/perl5\""; export PERL_MB_OPT;
-#PERL_MM_OPT="INSTALL_BASE=/Users/geromy.harper/perl5"; export PERL_MM_OPT;
