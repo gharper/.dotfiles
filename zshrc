@@ -57,6 +57,7 @@ plugins=(git)
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$PATH:/usr/local/opt/go/libexec/bin"
 export PATH="~/bin:$PATH"
+export PATH="$PATH:/usr/local/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 export CHEATCOLORS=true
 
@@ -96,6 +97,13 @@ export PIP_REQUIRE_VIRTUALENV=false
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias cd..='cd ..'
+alias cd~='cd ~'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias mkdir='mkdir -pv'
+alias mount='mount |column -t'
+alias hist='history'
 
 alias push_sshkey='ansible $1 -m authorized_key -a "user=gharper key=\"{{ lookup('\''file'\'', '\''.ssh/id_rsa.pub'\'') }}\" path=/home/users/gharper/.ssh/authorized_keys"'
 
@@ -112,3 +120,5 @@ alias pipup='pip list --outdated | cut -d" " -f1 | egrep -v "Package|---" | xarg
 alias pipls='pip list --outdated'
 
 alias keepass='lpass show -c --notes Keepass2'
+
+alias zabbixinit='ZABBIX_API='"'"'https://zabbix.qa.skytap.com/api_jsonrpc.php'"'"' && ZABBIX_AUTH=$(curl -s -X POST -H '"'"'Content-type:application/json'"'"' -d '"'"'{"jsonrpc":"2.0","method":"user.login","params":{ "user":"gharper","password":"'"'"'${ZABBIX_PASSWORD}'"'"'"},"auth":null,"id":0}'"'"' $ZABBIX_API | jq '"'"'.result'"'"'|tr -d '"'"'"'"'"') && echo $ZABBIX_AUTH'
