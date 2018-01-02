@@ -9,9 +9,7 @@
 	trustExitCode = true
 [user]
 	name = Geromy Harper
-	email = geromy+gitkraken@gmail.com
-[commit]
-	template = /Users/geromy.harper/.stCommitMsg
+	email = gharper@skytap.com
 [push]
 	default = matching
 
