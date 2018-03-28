@@ -1,3 +1,7 @@
+# =============================================================================
+# ZSH Config
+# =============================================================================
+
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -42,6 +46,8 @@ ZSH_THEME="gharper"
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
+HISTSIZE=100000
+SAVEHIST=100000
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -54,12 +60,21 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-export PATH="$PATH:/usr/local/opt/go/libexec/bin"
-export PATH="~/bin:$PATH"
-export PATH="$PATH:/usr/local/sbin"
-# export MANPATH="/usr/local/man:$MANPATH"
+# =============================================================================
+# Exports
+# =============================================================================
+
+# Add homebrew binaries to path
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+
 export CHEATCOLORS=true
+
+# Fixes Ansible fork issue on MacOS High Sierra
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# Force python packages to go in virtualenvs for dev sanity
+export PIP_REQUIRE_VIRTUALENV=true
+export WORKON_HOME=~/venv
 
 source $ZSH/oh-my-zsh.sh
 if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
@@ -69,6 +84,9 @@ elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; th
 fi
 if [[ -f ~/.profile ]]; then
     source ~/.profile
+fi
+if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
+    source /usr/local/bin/virtualenvwrapper.sh
 fi
 
 # You may need to manually set your language environment
@@ -87,16 +105,15 @@ fi
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-export PIP_REQUIRE_VIRTUALENV=false
+# =============================================================================
+# Aliases
+# =============================================================================
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+
 alias cd..='cd ..'
 alias cd~='cd ~'
 alias ..='cd ..'
@@ -105,20 +122,37 @@ alias mkdir='mkdir -pv'
 alias mount='mount |column -t'
 alias hist='history'
 
+# Use ansible to effectively ssh-copy-id to a group of servers
 alias push_sshkey='ansible $1 -m authorized_key -a "user=gharper key=\"{{ lookup('\''file'\'', '\''.ssh/id_rsa.pub'\'') }}\" path=/home/users/gharper/.ssh/authorized_keys"'
 
+# Check for orphan processes
 alias orphan_procs_on='ansible $1 -m shell -a "ps -elf | head -1; ps -elf | awk '\''{if (\$5 == 1 && \$3 != "root") {print \$0}}'\'' | head" -b -K'
 
+# Flush DNS in OS X
 alias flushdns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder;scutil --dns|grep -A20 "scoped queries"|egrep "resolver|domain|nameserver"'
 
+# Play a quick game of Russian Roulette
 alias shootme='[ $[ $RANDOM % 6 ] = 0 ] && echo "*BANG!*" || echo "*Click*"'
 
+# Typo the last command?  fuckit guesses what you meant and immediately runs it
 eval "$(thefuck --alias)"
 alias fuckit='export THEFUCK_REQUIRE_CONFIRMATION=False; fuck; export THEFUCK_REQUIRE_CONFIRMATION=True'
 
+# Shortcuts for commonly used pip commands
 alias pipup='pip list --outdated | cut -d" " -f1 | egrep -v "Package|---" | xargs sudo -H pip install -U '
 alias pipls='pip list --outdated'
 
-alias keepass='lpass show -c --notes Keepass2'
+# Copies the contents of a secure note from LastPass into clipboard buffer.
+alias lpwd='lpass show -c --notes '
 
-alias zabbixinit='ZABBIX_API='"'"'https://zabbix.qa.skytap.com/api_jsonrpc.php'"'"' && ZABBIX_AUTH=$(curl -s -X POST -H '"'"'Content-type:application/json'"'"' -d '"'"'{"jsonrpc":"2.0","method":"user.login","params":{ "user":"gharper","password":"'"'"'${ZABBIX_PASSWORD}'"'"'"},"auth":null,"id":0}'"'"' $ZABBIX_API | jq '"'"'.result'"'"'|tr -d '"'"'"'"'"') && echo $ZABBIX_AUTH'
+# Mount various remote servers to local dirs
+alias sshmountup='sshfs gharper@odv4linjump1.gharper.dev.skytap.com:/home/gharper/ /Users/gharper/mnt/odv4linjump1/ ;
+sshfs gharper@tuk1linjump4.prod.skytap.com:/home/gharper/ /Users/gharper/mnt/tuk1linjump4/ ;
+sshfs gharper@tuk8linjump4.qa.skytap.com:/home/gharper/ /Users/gharper/mnt/tuk8linjump4/ ;
+sshfs root@odv4opspuppetmaster1.gharper.dev.skytap.com:/etc/puppet /Users/gharper/mnt/odv4puppetmaster1 ;
+'
+alias sshmountdown='umount /Users/gharper/mnt/*'
+
+# =============================================================================
+# Functions
+# =============================================================================
