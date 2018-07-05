@@ -87,6 +87,7 @@ if [[ -f ~/.profile ]]; then
 fi
 if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
     source /usr/local/bin/virtualenvwrapper.sh
+    workon default
 fi
 
 # You may need to manually set your language environment
@@ -121,6 +122,7 @@ alias ...='cd ../../../'
 alias mkdir='mkdir -pv'
 alias mount='mount |column -t'
 alias hist='history'
+alias wtf='wtf -o'
 
 # Use ansible to effectively ssh-copy-id to a group of servers
 alias push_sshkey='ansible $1 -m authorized_key -a "user=gharper key=\"{{ lookup('\''file'\'', '\''.ssh/id_rsa.pub'\'') }}\" path=/home/users/gharper/.ssh/authorized_keys"'
@@ -146,13 +148,24 @@ alias pipls='pip list --outdated'
 alias lpwd='lpass show -c --notes '
 
 # Mount various remote servers to local dirs
-alias sshmountup='sshfs gharper@odv4linjump1.gharper.dev.skytap.com:/home/gharper/ /Users/gharper/mnt/odv4linjump1/ ;
+alias ssh_mount='sshfs gharper@odv4linjump1.gharper.dev.skytap.com:/home/gharper/ /Users/gharper/mnt/odv4linjump1/ ;
 sshfs gharper@tuk1linjump4.prod.skytap.com:/home/gharper/ /Users/gharper/mnt/tuk1linjump4/ ;
 sshfs gharper@tuk8linjump4.qa.skytap.com:/home/gharper/ /Users/gharper/mnt/tuk8linjump4/ ;
 sshfs root@odv4opspuppetmaster1.gharper.dev.skytap.com:/etc/puppet /Users/gharper/mnt/odv4puppetmaster1 ;
 '
-alias sshmountdown='umount /Users/gharper/mnt/*'
+alias ssh_umount='umount /Users/gharper/mnt/*'
+
+alias fixvenvs='find ~/venv/* -type l -delete ; 
+  virtualenv ~/venv/default ;
+  virtualenv ~/venv/ansible-2.3 ;
+  virtualenv ~/venv/ansible-2.4 ;
+  virtualenv ~/venv/ansible-2.5 ;
+  virtualenv ~/venv/operations_tools ;
+  workon default'
 
 # =============================================================================
 # Functions
 # =============================================================================
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
