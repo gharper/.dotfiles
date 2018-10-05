@@ -76,6 +76,12 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export PIP_REQUIRE_VIRTUALENV=true
 export WORKON_HOME=~/venv
 
+# Flags for M2Crypto install via pip
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
+export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
+export SWIG_FEATURES="-cpperraswarn -includeall -I$(brew --prefix openssl)/include"
+
 source $ZSH/oh-my-zsh.sh
 if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -163,15 +169,21 @@ alias fixvenvs='find ~/venv/* -type l -delete ;
   virtualenv ~/venv/operations_tools ;
   workon default'
 
+alias gitup='find ./ -name .git -execdir pwd \; -execdir git pull --all \;'
+alias top="sudo htop"
+alias jenkinsfile-lint="ssh jenkins.corp.skytap.com declarative-linter < "
+
 # =============================================================================
 # Functions
 # =============================================================================
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 PATH="/Users/gharper/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/Users/gharper/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/Users/gharper/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/Users/gharper/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/gharper/perl5"; export PERL_MM_OPT;
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="$PATH:`ruby -e 'puts Gem.user_dir'`/bin"
