@@ -4,3 +4,4 @@
 venv/
 .ansible.cfg
 host_deployment_data/
+oh-my-zsh/
