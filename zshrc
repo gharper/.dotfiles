@@ -77,9 +77,9 @@ export PIP_REQUIRE_VIRTUALENV=true
 export WORKON_HOME=~/venv
 
 # Flags for M2Crypto install via pip
-export LDFLAGS="-L/usr/local/opt/openssl/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl/include"
-export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
+export LDFLAGS="-L/usr/local/opt/openssl/lib:/usr/local/opt/curl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include:/usr/local/opt/curl/include"
+export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig:/usr/local/opt/curl/lib/pkgconfig"
 export SWIG_FEATURES="-cpperraswarn -includeall -I$(brew --prefix openssl)/include"
 
 source $ZSH/oh-my-zsh.sh
