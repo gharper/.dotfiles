@@ -45,7 +45,7 @@ ZSH_THEME="gharper"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+#HIST_STAMPS="yyyy-mm-dd"
 HISTSIZE=100000
 SAVEHIST=100000
 
@@ -65,7 +65,7 @@ plugins=(git)
 # =============================================================================
 
 # Add homebrew binaries to path
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+# PATH is set via path_helper in /private/etc/paths.d/*
 
 export CHEATCOLORS=true
 
@@ -81,6 +81,16 @@ export LDFLAGS="-L/usr/local/opt/openssl/lib:/usr/local/opt/curl/lib"
 export CPPFLAGS="-I/usr/local/opt/openssl/include:/usr/local/opt/curl/include"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig:/usr/local/opt/curl/lib/pkgconfig"
 export SWIG_FEATURES="-cpperraswarn -includeall -I$(brew --prefix openssl)/include"
+
+export PERL5LIB="/Users/gharper/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
+export PERL_LOCAL_LIB_ROOT="/Users/gharper/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
+export PERL_MB_OPT="--install_base \"/Users/gharper/perl5\""
+export PERL_MM_OPT="INSTALL_BASE=/Users/gharper/perl5"
+
+
+# =============================================================================
+# Oh My Zsh
+# =============================================================================
 
 source $ZSH/oh-my-zsh.sh
 if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
@@ -161,6 +171,7 @@ sshfs root@odv4opspuppetmaster1.gharper.dev.skytap.com:/etc/puppet /Users/gharpe
 '
 alias ssh_umount='umount /Users/gharper/mnt/*'
 
+# Use if `brew update python` borks the venvs
 alias fixvenvs='find ~/venv/* -type l -delete ; 
   virtualenv ~/venv/default ;
   virtualenv ~/venv/ansible-2.3 ;
@@ -179,11 +190,3 @@ alias jenkinsfile-lint="ssh jenkins.corp.skytap.com declarative-linter < "
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fpath=(/usr/local/share/zsh-completions $fpath)
-
-PATH="/Users/gharper/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/Users/gharper/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/Users/gharper/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/Users/gharper/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/gharper/perl5"; export PERL_MM_OPT;
-export PATH="/usr/local/opt/openssl/bin:$PATH"
-export PATH="$PATH:`ruby -e 'puts Gem.user_dir'`/bin"
