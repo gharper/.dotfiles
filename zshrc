@@ -1,7 +1,7 @@
 # =============================================================================
 # ZSH Config
 # =============================================================================
-
+echo -ne "Exporting vars"\\r
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -91,8 +91,10 @@ export PERL_MM_OPT="INSTALL_BASE=/Users/gharper/perl5"
 # =============================================================================
 # Oh My Zsh
 # =============================================================================
-
+echo -ne "\e[2k\r"
+echo -ne "Configuring oh-my-zsh"\\r
 source $ZSH/oh-my-zsh.sh
+
 if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
@@ -125,7 +127,8 @@ fi
 # =============================================================================
 # Aliases
 # =============================================================================
-
+echo -ne "\e[2k\r"
+echo -ne "Setting aliases"\\r
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -177,16 +180,20 @@ alias fixvenvs='find ~/venv/* -type l -delete ;
   virtualenv ~/venv/ansible-2.3 ;
   virtualenv ~/venv/ansible-2.4 ;
   virtualenv ~/venv/ansible-2.5 ;
+  virtualenv ~/venv/ansible-2.7 ;
   virtualenv ~/venv/operations_tools ;
   workon default'
 
 alias gitup='find ./ -name .git -execdir pwd \; -execdir git pull --all \;'
 alias top="sudo htop"
 alias jenkinsfile-lint="ssh jenkins.corp.skytap.com declarative-linter < "
+alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
 
 # =============================================================================
 # Functions
 # =============================================================================
-
+echo -ne "\e[2k\r"
+echo -ne "Setting functions"\\r
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fpath=(/usr/local/share/zsh-completions $fpath)
+echo -ne "\e[2k\r"
