@@ -77,8 +77,8 @@ export PIP_REQUIRE_VIRTUALENV=true
 export WORKON_HOME=~/venv
 
 # Flags for M2Crypto install via pip
-export LDFLAGS="-L/usr/local/opt/openssl/lib:/usr/local/opt/curl/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl/include:/usr/local/opt/curl/include"
+export LDFLAGS="-L/usr/local/opt/openssl/lib:/usr/local/opt/curl/lib:/usr/local/opt/binutils/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include:/usr/local/opt/curl/include:/usr/local/opt/binutils/include"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig:/usr/local/opt/curl/lib/pkgconfig"
 export SWIG_FEATURES="-cpperraswarn -includeall -I$(brew --prefix openssl)/include"
 
@@ -87,11 +87,10 @@ export PERL_LOCAL_LIB_ROOT="/Users/gharper/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_L
 export PERL_MB_OPT="--install_base \"/Users/gharper/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=/Users/gharper/perl5"
 
-
 # =============================================================================
 # Oh My Zsh
 # =============================================================================
-echo -ne "\e[2k\r"
+echo -ne "\e[2K\r"
 echo -ne "Configuring oh-my-zsh"\\r
 source $ZSH/oh-my-zsh.sh
 
@@ -127,7 +126,7 @@ fi
 # =============================================================================
 # Aliases
 # =============================================================================
-echo -ne "\e[2k\r"
+echo -ne "\e[2K\r"
 echo -ne "Setting aliases"\\r
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -192,8 +191,8 @@ alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
 # =============================================================================
 # Functions
 # =============================================================================
-echo -ne "\e[2k\r"
+echo -ne "\e[2K\r"
 echo -ne "Setting functions"\\r
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fpath=(/usr/local/share/zsh-completions $fpath)
-echo -ne "\e[2k\r"
+echo -ne "\e[2K\r"
