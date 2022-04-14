@@ -10,6 +10,7 @@
 [user]
 	name = Geromy Harper
 	email = gharper@skytap.com
+	signingKey = ""
 [push]
 	default = matching
 
@@ -31,3 +32,9 @@
 
 [branch]
 	autosetuprebase = always
+[gpg]
+	program = gpg
+[commit]
+	gpgSign = false
+[tag]
+	forceSignAnnotated = false

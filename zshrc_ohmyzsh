@@ -1,7 +1,10 @@
 # =============================================================================
 # ZSH Config
 # =============================================================================
-echo -ne "Exporting vars"\\r
+echo -ne "\e[2K\r"; echo -ne "Antibody init"\\r
+source <(antibody init)
+
+echo -ne "\e[2K\r"; echo -ne "Exporting vars"\\r
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -56,9 +59,13 @@ SAVEHIST=100000
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+#plugins=(git)
+echo -ne "\e[2K\r"; echo -ne "Antibody bundle plugins"\\r
+antibody bundle < ~/.zsh_plugins.txt
 
 # User configuration
+# http://zsh.sourceforge.net/Doc/Release/Zsh-Modules.html
+zmodload zsh/mapfile
 
 # =============================================================================
 # Exports
@@ -72,41 +79,73 @@ export CHEATCOLORS=true
 # Fixes Ansible fork issue on MacOS High Sierra
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-# Force python packages to go in virtualenvs for dev sanity
-export PIP_REQUIRE_VIRTUALENV=true
+# Python flags
+#export PIP_REQUIRE_VIRTUALENV=true
 export WORKON_HOME=~/venv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 
-# Flags for M2Crypto install via pip
-export LDFLAGS="-L/usr/local/opt/openssl/lib:/usr/local/opt/curl/lib:/usr/local/opt/binutils/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl/include:/usr/local/opt/curl/include:/usr/local/opt/binutils/include"
-export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig:/usr/local/opt/curl/lib/pkgconfig"
-export SWIG_FEATURES="-cpperraswarn -includeall -I$(brew --prefix openssl)/include"
+# M2Crypto flags (install via pip)
+export LDFLAGS="-L$(brew --prefix openssl)/lib"
+export CPPFLAGS="-I$(brew --prefix openssl)/include"
+export PKG_CONFIG_PATH="$(brew --prefix openssl)/lib/pkgconfig"
+if [[ "$(uname 2> /dev/null)" == "Darwin" ]]; then
+  export SWIG_FEATURES="-cpperraswarn -includeall -I$(brew --prefix openssl)/include"
+fi
 
+# Perl flags
 export PERL5LIB="/Users/gharper/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
 export PERL_LOCAL_LIB_ROOT="/Users/gharper/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
-export PERL_MB_OPT="--install_base \"/Users/gharper/perl5\""
+export PERL_MB_OPT="--install_base \"/Usexers/gharper/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=/Users/gharper/perl5"
+
+# Ruby flags
+#export GEM_HOME="$HOME/.gem"
+export R_OPENSSL="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export R_READLN="--with-readline-dir=$(brew --prefix readline)"
+export R_YAML="--with-libyaml-dir=$(brew --prefix libyaml)"
+export RUBY_CONFIGURE_OPTS="${R_OPENSSL} ${R_READLN} ${R_YAML}"
+
+export EMAIL="gharper@skytap.com"
+export SKYTAP_API_TOKEN=$(cat ~/.skytap_api_token)
+export PASSWORD=$(cat ~/.ssh/passwd)
+
 
 # =============================================================================
 # Oh My Zsh
 # =============================================================================
-echo -ne "\e[2K\r"
-echo -ne "Configuring oh-my-zsh"\\r
-source $ZSH/oh-my-zsh.sh
+#echo -ne "\e[2K\r"; echo -ne "Configuring oh-my-zsh"\\r
+#source $ZSH/oh-my-zsh.sh
 
-if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+#if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+#    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+#    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#fi
+
 if [[ -f ~/.profile ]]; then
+    echo -ne "\e[2K\r"; echo -ne "Sourcing .profile"\\r
     source ~/.profile
 fi
-if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
-    source /usr/local/bin/virtualenvwrapper.sh
-    workon default
+
+export PYENV_PATH="$(which pyenv)"
+if [[ -f ${PYENV_PATH} ]]; then 
+    echo -ne "\e[2K\r"; echo -ne "Sourcing pyenv"\\r
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
 fi
 
+export PYENV_VENV_PATH="$(which pyenv-virtualenv-init)"
+if [[ -f ${PYENV_VENV_PATH} ]]; then
+    echo -ne "\e[2K\r"; echo -ne "Sourcing pyenv virtualenv-init"\\r
+    eval "$(pyenv virtualenv-init -)"
+fi
+
+export SDKMAN_DIR="$HOME/.sdkman"
+if [[ -f ${SDKMAN_DIR} ]] && [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
+    echo -ne "\e[2K\r"; echo -ne "Sourcing sdkman-init"\\r
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+fi
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -126,8 +165,7 @@ fi
 # =============================================================================
 # Aliases
 # =============================================================================
-echo -ne "\e[2K\r"
-echo -ne "Setting aliases"\\r
+echo -ne "\e[2K\r"; echo -ne "Setting aliases"\\r
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -165,24 +203,6 @@ alias pipls='pip list --outdated'
 # Copies the contents of a secure note from LastPass into clipboard buffer.
 alias lpwd='lpass show -c --notes '
 
-# Mount various remote servers to local dirs
-alias ssh_mount='sshfs gharper@odv4linjump1.gharper.dev.skytap.com:/home/gharper/ /Users/gharper/mnt/odv4linjump1/ ;
-sshfs gharper@tuk1linjump4.prod.skytap.com:/home/gharper/ /Users/gharper/mnt/tuk1linjump4/ ;
-sshfs gharper@tuk8linjump4.qa.skytap.com:/home/gharper/ /Users/gharper/mnt/tuk8linjump4/ ;
-sshfs root@odv4opspuppetmaster1.gharper.dev.skytap.com:/etc/puppet /Users/gharper/mnt/odv4puppetmaster1 ;
-'
-alias ssh_umount='umount /Users/gharper/mnt/*'
-
-# Use if `brew update python` borks the venvs
-alias fixvenvs='find ~/venv/* -type l -delete ; 
-  virtualenv ~/venv/default ;
-  virtualenv ~/venv/ansible-2.3 ;
-  virtualenv ~/venv/ansible-2.4 ;
-  virtualenv ~/venv/ansible-2.5 ;
-  virtualenv ~/venv/ansible-2.7 ;
-  virtualenv ~/venv/operations_tools ;
-  workon default'
-
 alias gitup='find ./ -name .git -execdir pwd \; -execdir git pull --all \;'
 alias top="sudo htop"
 alias jenkinsfile-lint="ssh jenkins.corp.skytap.com declarative-linter < "
@@ -191,8 +211,12 @@ alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
 # =============================================================================
 # Functions
 # =============================================================================
+echo -ne "\e[2K\r"; echo -ne "Setting functions"\\r
 echo -ne "\e[2K\r"
-echo -ne "Setting functions"\\r
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/gharper/.sdkman"
+[[ -s "/Users/gharper/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/gharper/.sdkman/bin/sdkman-init.sh"
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-fpath=(/usr/local/share/zsh-completions $fpath)
-echo -ne "\e[2K\r"
+
