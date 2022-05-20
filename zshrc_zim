@@ -60,7 +60,7 @@ WORDCHARS=${WORDCHARS//[\/]}
 #
 # ssh
 #
-zstyle ':zim:ssh' ids  'id_rsa' 'id_rsa_jenkins' 'id_rsa_webbackups'
+zstyle ':zim:ssh' ids  'id_rsa' 'id_rsa_jenkins'
 
 #
 # termtitle
@@ -134,3 +134,4 @@ for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 # }}} End configuration added by Zim install
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"

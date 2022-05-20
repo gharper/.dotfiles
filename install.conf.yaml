@@ -6,10 +6,10 @@
 
 - link:
     ~/.dotfiles: ''
-    ~/.oh-my-zsh: oh-my-zsh
-    ~/.oh-my-zsh/themes/gharper.zsh-theme: gharper.zsh-theme
     ~/.vimrc: vimrc
-    ~/.zshrc: zshrc
+    ~/.zimrc: zimrc
+    ~/.zshrc: zshrc_zim
+    ~/.zprofile: zprofile
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
     ~/.zsh_plugins.txt: zsh_plugins.txt
