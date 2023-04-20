@@ -6,10 +6,13 @@
 
 - link:
     ~/.dotfiles: ''
+    ~/.asdfrc: asdfrc
     ~/.vimrc: vimrc
     ~/.zimrc: zimrc
     ~/.zshrc: zshrc_zim
     ~/.zprofile: zprofile
+    ~/.zsh_aliases: zsh_aliases
+    ~/.zsh_functions: zsh_functions
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
     ~/.zsh_plugins.txt: zsh_plugins.txt

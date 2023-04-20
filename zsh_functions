@@ -1,3 +1,11 @@
 dy () { 
   dig +noall +answer +additional "$1" @dns.toys; 
 }
+
+setpass () {
+    echo -n "Password: "
+    read -s PASSWORD ; echo
+    export SSH_PASS=${PASSWORD}
+    export FOREMAN_USER=${USER}
+    export FOREMAN_PASSWORD=${PASSWORD}
+}

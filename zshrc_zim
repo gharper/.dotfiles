@@ -148,5 +148,18 @@ for key ('j') bindkey -M vicmd ${key} history-substring-search-down
 unset key
 # }}} End configuration added by Zim install
 
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-. "/Users/gharper/.acme.sh/acme.sh.env"
+if [[ -f $(brew --prefix asdf)/libexec/asdf.sh ]]; then
+  source $(brew --prefix asdf)/libexec/asdf.sh
+fi
+if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc" ]]; then
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+fi
+if [[ -f ${HOME}/.asdf/plugins/java/set-java-home.zsh ]]; then
+  source ${HOME}/.asdf/plugins/java/set-java-home.zsh
+fi
+if [[ -f ~/.acme.sh/acme.sh.env ]]; then
+  source ~/.acme.sh/acme.sh.env
+fi
+if [[ -f ~/.config/iterm2/.iterm2_shell_integration.zsh ]]; then
+    source ~/.config/iterm2/.iterm2_shell_integration.zsh
+fi
