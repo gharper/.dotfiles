@@ -8,7 +8,7 @@
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [user]
-	name = geromy@gmail.com
+	name = Geromy Harper
 	email = gharper@skytap.com
 	signingKey = ""
 [push]

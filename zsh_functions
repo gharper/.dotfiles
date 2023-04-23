@@ -5,6 +5,7 @@ dy () {
 setpass () {
     echo -n "Password: "
     read -s PASSWORD ; echo
+    export ANSIBLE_PASSWORD=${PASSWORD}
     export SSH_PASS=${PASSWORD}
     export FOREMAN_USER=${USER}
     export FOREMAN_PASSWORD=${PASSWORD}
