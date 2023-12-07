@@ -12,6 +12,7 @@
     ~/.vimrc: vimrc
     ~/.zimrc: zimrc
     ~/.zprofile: zprofile
+    ~/.zshenv: zshenv
     ~/.zshrc: zshrc
     ~/.zsh_aliases: zsh_aliases
     ~/.zsh_functions: zsh_functions

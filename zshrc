@@ -158,3 +158,6 @@ fi
 if [[ -f ~/.config/iterm2/.iterm2_shell_integration.zsh ]]; then
     source ~/.config/iterm2/.iterm2_shell_integration.zsh
 fi
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform

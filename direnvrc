@@ -13,3 +13,9 @@ layout_poetry() {
     ln -ns $VIRTUAL_ENV .venv
   fi
 }
+
+layout_ruby() {
+  local RUBY_EXEC=$(asdf which ruby local)
+  local RUBY_DIR=$(dirname $(dirname ${RUBY_EXEC}))
+  load_prefix ${RUBY_DIR}
+}

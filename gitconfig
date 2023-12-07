@@ -9,7 +9,7 @@
 	trustExitCode = true
 [user]
 	name = Geromy Harper
-	email = gharper@skytap.com
+	email = geromy+github@gmail.com
 	signingKey = ""
 [push]
 	default = matching
