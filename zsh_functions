@@ -1,12 +1,21 @@
-dy () { 
-  dig +noall +answer +additional "$1" @dns.toys; 
+dy () {
+  dig +noall +answer +additional "$1" @dns.toys;
 }
 
 setpass () {
-    echo -n "Password: "
-    read -s PASSWORD ; echo
-    export ANSIBLE_PASSWORD=${PASSWORD}
-    export SSH_PASS=${PASSWORD}
-    export FOREMAN_USER=${USER}
-    export FOREMAN_PASSWORD=${PASSWORD}
+  echo -n "Password: "
+  read -s PASSWORD ; echo
+  export ANSIBLE_PASSWORD=${PASSWORD}
+  export SSH_PASS=${PASSWORD}
+  export FOREMAN_USER=${USER}
+  export FOREMAN_PASSWORD=${PASSWORD}
+}
+
+poetry-init () {
+  echo "layout poetry" >! .envrc
+  direnv allow .
+  direnv exec . echo
+  if [ ! -f pyproject.toml ]; then
+    poetry init --no-interaction
+  fi
 }
