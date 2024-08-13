@@ -4,12 +4,11 @@ layout_poetry() {
     $(asdf which poetry local) init -n -q
     $(asdf which poetry local) run pip install -U pip wheel setuptools
   fi
-  $(asdf which poetry local) run echo >> /dev/null
   local VENV=$(dirname $(poetry run which python))
   export VIRTUAL_ENV=$(echo "$VENV" | rev | cut -d'/' -f2- | rev)
   export POETRY_ACTIVE=1
   PATH_add "$VENV"
-  if [ ! -L .venv ]; then
+  if [ "$(pwd)/.venv" != $VIRTUAL_ENV ] && [ ! -L .venv ]; then
     ln -ns $VIRTUAL_ENV .venv
   fi
 }

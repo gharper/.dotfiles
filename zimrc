@@ -11,6 +11,9 @@
 # Sets up asdf, with auto install and optimized usage of the direnv plugin.
 zmodule asdf
 
+# Sets up the direnv Zsh shell integration
+zmodule direnv
+
 # Sets sane Zsh built-in environment options.
 zmodule environment
 
@@ -28,6 +31,15 @@ zmodule termtitle
 
 # Utility aliases and functions. Adds colour to ls, grep and less.
 zmodule utility
+
+# Configures fzf for faster fetching of files and directories names.
+zmodule fzf
+
+# Shown when there is no command and user presses ENTER.
+zmodule magic-enter	
+
+# Interactively build jq expressions
+zmodule reegnz/jq-zsh-plugin
 
 #######################################
 # Prompt

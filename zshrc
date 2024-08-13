@@ -96,9 +96,19 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 #typeset -A ZSH_HIGHLIGHT_STYLES
 #ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
 
-# 
+# Homebrew
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Openssl
+if [[ -f $(brew --prefix openssl)/bin ]]; then
+    export PATH=$(brew --prefix openssl)/bin:$PATH
+fi
+
+#
 # Custom functions and aliases
-# 
+#
 if [[ -f ~/.zsh_functions ]]; then
   source ~/.zsh_functions
 fi
@@ -158,6 +168,9 @@ fi
 if [[ -f ~/.config/iterm2/.iterm2_shell_integration.zsh ]]; then
     source ~/.config/iterm2/.iterm2_shell_integration.zsh
 fi
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
+if [[ -f /opt/homebrew/bin/fzf ]]; then
+  eval "$(fzf --zsh)"
+fi
+if [[ -f /etc/ssl/certs/ca-certificates.crt ]]; then
+  export REQUESTS_CA_BUNDLE='/etc/ssl/certs/ca-certificates.crt'
+fi

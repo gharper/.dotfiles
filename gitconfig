@@ -38,3 +38,5 @@
 	gpgSign = false
 [tag]
 	forceSignAnnotated = false
+[advice]
+	detachedHead = false
