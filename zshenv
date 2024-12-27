@@ -8,3 +8,4 @@ if [[ -f /etc/ssl/certs/ca-certificates.crt ]]; then
   export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
   export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 fi
+. "$HOME/.cargo/env"

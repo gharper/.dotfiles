@@ -8,9 +8,6 @@
 # Modules
 #
 
-# Sets up asdf, with auto install and optimized usage of the direnv plugin.
-zmodule asdf
-
 # Sets up the direnv Zsh shell integration
 zmodule direnv
 
@@ -36,7 +33,7 @@ zmodule utility
 zmodule fzf
 
 # Shown when there is no command and user presses ENTER.
-zmodule magic-enter	
+zmodule magic-enter
 
 # Interactively build jq expressions
 zmodule reegnz/jq-zsh-plugin

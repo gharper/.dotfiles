@@ -162,6 +162,9 @@ fi
 if [[ -f ${HOME}/.asdf/plugins/java/set-java-home.zsh ]]; then
   source ${HOME}/.asdf/plugins/java/set-java-home.zsh
 fi
+if [[ -f $(brew --prefix mise)/bin/mise ]]; then
+  eval "$($(brew --prefix mise)/bin/mise activate zsh)"
+fi
 if [[ -f ~/.acme.sh/acme.sh.env ]]; then
   source ~/.acme.sh/acme.sh.env
 fi
@@ -174,3 +177,11 @@ fi
 if [[ -f /etc/ssl/certs/ca-certificates.crt ]]; then
   export REQUESTS_CA_BUNDLE='/etc/ssl/certs/ca-certificates.crt'
 fi
+
+# pnpm
+export PNPM_HOME="/Users/gharper/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
