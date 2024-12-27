@@ -98,11 +98,13 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 # Homebrew
 if [[ -f /opt/homebrew/bin/brew ]]; then
+  echo "brew found: activating shellenv"
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Openssl
 if [[ -f $(brew --prefix openssl)/bin ]]; then
+    echo "brew openssl found: pathing"
     export PATH=$(brew --prefix openssl)/bin:$PATH
 fi
 
@@ -154,6 +156,7 @@ unset key
 # }}} End configuration added by Zim install
 
 if [[ -f $(brew --prefix asdf)/libexec/asdf.sh ]]; then
+  echo "brew asdf found: activating"
   source $(brew --prefix asdf)/libexec/asdf.sh
 fi
 if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc" ]]; then
@@ -163,6 +166,7 @@ if [[ -f ${HOME}/.asdf/plugins/java/set-java-home.zsh ]]; then
   source ${HOME}/.asdf/plugins/java/set-java-home.zsh
 fi
 if [[ -f $(brew --prefix mise)/bin/mise ]]; then
+  echo "brew mise found: en placing"
   eval "$($(brew --prefix mise)/bin/mise activate zsh)"
 fi
 if [[ -f ~/.acme.sh/acme.sh.env ]]; then
@@ -172,6 +176,7 @@ if [[ -f ~/.config/iterm2/.iterm2_shell_integration.zsh ]]; then
     source ~/.config/iterm2/.iterm2_shell_integration.zsh
 fi
 if [[ -f /opt/homebrew/bin/fzf ]]; then
+  echo "brew fuzzy finder: found"
   eval "$(fzf --zsh)"
 fi
 if [[ -f /etc/ssl/certs/ca-certificates.crt ]]; then
